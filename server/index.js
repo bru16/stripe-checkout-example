@@ -1,9 +1,11 @@
 const express = require('express');
 const Stripe = require('stripe');
 const cors = require('cors');
+require('dotenv').config();
 
+const { STRIPE_SECRET } = process.env;
 const app = express();
-const stripe = new Stripe('sk_test_51IiRhnDGA4SnVsA9MWtcI0qXxEeSRT6R03w5s6eqmlrNrjoX47kLVu15ZxsISZlxX0RWzUirzCixM1kwe6BJlOYI00sKrlFMO6')
+const stripe = new Stripe(STRIPE_SECRET);
 app.listen(4000, () => console.log('listening on port 4000'));
 
 app.use(cors({ origin: 'http://localhost:3000' }));

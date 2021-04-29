@@ -16,12 +16,8 @@ const CheckoutForm = () => {
             setLoading(false);
             return;
         }
-        // Get a reference to a mounted CardElement. Elements knows how
-        // to find your CardElement because there can only ever be one of
-        // each type of element.
+        
         const cardElement = elements.getElement(CardElement);
-
-        // Use your card Element with other Stripe.js APIs
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
             card: cardElement,
@@ -38,7 +34,8 @@ const CheckoutForm = () => {
                         const message = res.data.message;
                         (message.includes('Payment done successfully!')) ? toast.success(message) : toast.error(message);   // success payment or error code message.
                         setLoading(false);
-                    }));
+                    }))
+                    .catch(() => { toast.error('An error has occurred'); setLoading(false) });
             } catch (error) {
                 setLoading(false);
                 console.log(error);
